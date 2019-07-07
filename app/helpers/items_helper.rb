@@ -51,10 +51,13 @@ module ItemsHelper
     end
   end
 
+  # обновляет качество в зависимости от имени
   def my_update_quality(item)
+    # Для обычных item
     if item.name != "Aged Brie" and item.name != "Backstage passes to a ETC concert" and item.name != "Conjured"
       quality = item.quality - 1
     end
+    # Для пропуска
     if item.name == "Backstage passes to a ETC concert"
       sell_in = item.sell_in
       quality = if sell_in.between?(11, 50)
@@ -67,12 +70,15 @@ module ItemsHelper
                   0
                 end
     end
+    # для вина
     if item.name == "Aged Brie"
       quality = item.quality + 1
     end
+    # для наколдованных предметов
     if item.name == "Conjured"
       quality = item.quality - 2
     end
+    # зписывает quality
     item.update(quality: quality)
   end
 
