@@ -52,19 +52,19 @@ module ItemsHelper
   end
 
   def my_update_quality(item)
-    if item.name != "Aged Brie" and item.name != "Backstage passes to a ETC concert"
+    if item.name != "Aged Brie" and item.name != "Backstage passes to a ETC concert" and item.name != "Conjured"
       quality = item.quality - 1
     end
     if item.name == "Backstage passes to a ETC concert"
       sell_in = item.sell_in
-      quality = if sell_in.between?(10, 51)
+      quality = if sell_in.between?(11, 50)
                   item.quality + 1
-                elsif sell_in.between?(5, 11)
+                elsif sell_in.between?(6, 10)
                   item.quality + 2
-                elsif sell_in.between?(0, 6)
+                elsif sell_in.between?(1, 5)
                   item.quality + 3
-                elsif sell_in == 0
-                  item.quality == 0
+                elsif sell_in < 0
+                  0
                 end
     end
     if item.name == "Aged Brie"
