@@ -67,7 +67,6 @@ class ItemsController < ApplicationController
     my_update_quality(items)
     respond_to do |format|
       format.html {redirect_to items_url, notice: 'Items quality succefuly updated.'}
-      format.json { render :show, status: :ok, location: @item }
     end
   end
 
