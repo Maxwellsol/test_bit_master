@@ -1,5 +1,5 @@
 module ItemsHelper
-  def update_quality()
+  def update_qualityy()
     @items.each do |item|
       if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert"
         if item.quality > 0
@@ -52,43 +52,49 @@ module ItemsHelper
   end
 
   # обновляет качество в зависимости от имени
-  def my_update_quality(item)
-    sell_in = item.sell_in
-    # Для обычных item
-    if item.name != "Aged Brie" and item.name != "Backstage passes to a ETC concert" and item.name != "Conjured"
-      quality = if sell_in > 0
-                  item.quality - 1
-                else
-                  item.quality - 2
-                end
-    end
-    # Для пропуска
-    if item.name == "Backstage passes to a ETC concert"
+  def my_update_quality(items)
+    items.each do |item|
+      # Для обычных item
+      if item.name != "Sulfuras, Hand of Ragnaros"
+        sell_in = item.sell_in
+        days_left = item.sell_in - 1
+        item.update(sell_in: days_left)
+        if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert" and item.name != "Conjured"
+          quality = if sell_in > 0
+                      item.quality - 1
+                    else
+                      item.quality - 2
+                    end
+        end
+        # Для пропуска
+        if item.name == "Backstage passes to a TAFKAL80ETC concert"
 
-      quality = if sell_in.between?(11, 50)
-                  item.quality + 1
-                elsif sell_in.between?(6, 10)
-                  item.quality + 2
-                elsif sell_in.between?(1, 5)
-                  item.quality + 3
-                elsif sell_in < 0
-                  0
-                end
+          quality = if sell_in.between?(11, 50)
+                      item.quality + 1
+                    elsif sell_in.between?(6, 10)
+                      item.quality + 2
+                    elsif sell_in.between?(1, 5)
+                      item.quality + 3
+                    elsif sell_in < 0
+                      0
+                    end
+        end
+        # для вина
+        if item.name == "Aged Brie"
+          quality = item.quality + 1
+        end
+        # для наколдованных предметов
+        if item.name == "Conjured"
+          quality = if sell_in > 0
+                      item.quality - 2
+                    else
+                      item.quality - 4
+                    end
+        end
+        # зписывает quality
+        item.update(quality: quality)
+      end
     end
-    # для вина
-    if item.name == "Aged Brie"
-      quality = item.quality + 1
-    end
-    # для наколдованных предметов
-    if item.name == "Conjured"
-      quality = if sell_in > 0
-                  item.quality - 2
-                else
-                  item.quality - 4
-                end
-    end
-    # зписывает quality
-    item.update(quality: quality)
   end
-
 end
+

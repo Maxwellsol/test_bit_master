@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :set_item, only: [:show, :edit, :update, :destroy]
+  include ItemsHelper
+  before_action :set_item, only: [:show, :edit, :update, :destroy, :update_quality]
 
   # GET /items
   # GET /items.json
@@ -61,14 +62,23 @@ class ItemsController < ApplicationController
     end
   end
 
+  def update_quality
+    items = Item.all #.find(params[:item_id])
+    my_update_quality(items)
+    respond_to do |format|
+      format.html {redirect_to items_url, notice: 'Items quality succefuly updated.'}
+      format.json { render :show, status: :ok, location: @item }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_item
-      @item = Item.find(params[:id])
+      @item = Item.find_by_id(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
-      params.require(:item).permit(:name, :string,, :quality, :sell_in)
+      params.require(:item).permit(:name, :string, :quality, :sell_in)
     end
 end

@@ -6,11 +6,6 @@
 </p>
 
 <p>
-  <strong>String,:</strong>
-  <%= @item.string, %>
-</p>
-
-<p>
   <strong>Quality:</strong>
   <%= @item.quality %>
 </p>
@@ -19,6 +14,7 @@
   <strong>Sell in:</strong>
   <%= @item.sell_in %>
 </p>
+
 
 <%= link_to 'Edit', edit_item_path(@item) %> |
 <%= link_to 'Back', items_path %>

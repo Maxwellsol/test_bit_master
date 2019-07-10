@@ -6,18 +6,16 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>String,</th>
       <th>Quality</th>
       <th>Sell in</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
+  <%= link_to 'Update Quality', item_update_quality_path(@items) %>
   <tbody>
     <% @items.each do |item| %>
       <tr>
         <td><%= item.name %></td>
-        <td><%= item.string, %></td>
         <td><%= item.quality %></td>
         <td><%= item.sell_in %></td>
         <td><%= link_to 'Show', item %></td>
@@ -29,5 +27,6 @@
 </table>
 
 <br>
-
 <%= link_to 'New Item', new_item_path %>
+
+
