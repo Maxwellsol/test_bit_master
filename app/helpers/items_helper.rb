@@ -74,7 +74,7 @@ module ItemsHelper
                       item.quality + 2
                     elsif sell_in.between?(1, 5)
                       item.quality + 3
-                    elsif sell_in < 0
+                    elsif sell_in < 1
                       0
                     end
         end
